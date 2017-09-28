@@ -18,6 +18,8 @@ WHERE year=1999
 ORDER BY species_id; 
 
 SELECT *
+FROM surveys
+WHERE (plot_id =1) AND (weight>=75) OR (species_id) = 'DM';
 
 SELECT year, month, day, species_id, weight
 FROM surveys;
