@@ -1,0 +1,109 @@
+SELECT species_id, COUNT (species_id)
+FROM surveys
+GROUP BY species_id
+HAVING COUNT(species_id) > 10
+
+SELECT ROUND (SUM(weight)/1000.0, 3), AVG(weight), MIN (weight), MAX (weight)
+FROM surveys
+WHERE (weight >= 5) AND (weight <=10);
+
+SELECT year, month, day, species_id, ROUND (weight/1000.0, 2)
+FROM surveys
+WHERE year=1999 
+ORDER BY species_id; 
+
+SELECT year, month, day, species_id, ROUND (weight/1000.0, 2)
+FROM surveys
+WHERE year=1999 
+ORDER BY species_id; 
+
+SELECT *
+
+SELECT year, month, day, species_id, weight
+FROM surveys;
+
+SELECT genus, count(genus)
+FROM species
+GROUP BY taxa
+HAVING COUNT(taxa) > 10;
+
+SELECT genus, COUNT(genus) AS numbers, taxa
+FROM species
+GROUP BY taxa
+HAVING numbers > 10;
+
+SELECT *
+FROM surveys
+WHERE year = 2000 AND (month > 4 AND month <10);
+
+CREATE VIEW summer_2000 AS
+SELECT *
+FROM surveys
+WHERE year = 2000 AND (month > 4 AND month <10);
+
+SELECT *
+FROM summer_2000;
+
+SELECT AVG(weight)
+FROM summer_2000
+WHERE species_id == 'PE';
+
+SELECT SUM(weight), COUNT(*), SUM(weight)/COUNT(*)
+FROM summer_2000
+WHERE species_id == 'PE';
+
+SELECT COUNT (*) 
+FROM summer_2000
+WHERE sex = 'M';
+
+SELECT surveys.species_id, year, weight
+FROM surveys JOIN species ON species.species_id = surveys.species_id
+WHERE taxa = "Rodent"
+ORDER BY weight DESC, hindfoot_length DESC, year DESC LIMIT 100
+
+
+
+SELECT COUNT (*) 
+FROM summer_2000
+WHERE sex != 'F';
+
+SELECT COUNT (*) 
+FROM summer_2000;
+
+SELECT COUNT (*) 
+FROM summer_2000
+WHERE sex != 'M';
+
+SELECT COUNT (*) 
+FROM summer_2000
+WHERE sex = 'F';
+
+SELECT COUNT (*) 
+FROM summer_2000
+WHERE sex IS NULL;
+
+SELECT *
+FROM surveys
+JOIN species
+ON species.species_id = species.species_id;
+
+SELECT *
+FROM surveys
+JOIN species
+USING (species_id);
+
+SELECT surveys.year, surveys.month, surveys.day, species.genus, species.species
+FROM surveys
+JOIN species
+ON surveys.species_id = species.species_id;
+
+SELECT surveys.weight, species.genus, species.species
+FROM surveys
+JOIN species
+ON surveys.species_id = species.species_id;
+
+SELECT year, COUNT(*) AS total_abundance 
+FROM surveys
+WHERE (species_id IS NOT NULL)
+GROUP BY year
+ORDER BY year ASC;
